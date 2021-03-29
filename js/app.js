@@ -62,7 +62,7 @@ function handelClick(event){
       if(Item.all[i].name === event.target.title){
         Item.all[i].votes++;
         clicksNumber=clicksNumber+1;
-        if (clicksNumber ===25){
+        if (clicksNumber ===2){
           resultButton();
         }
 
@@ -110,7 +110,6 @@ button2.addEventListener ('click', function() {
   window.location.reload('Refresh');
 
 });
-
 function chartDisplay() {
   let ctx = document.getElementById('myChart').getContext('2d');
   let myChart = new Chart(ctx, {
@@ -120,14 +119,15 @@ function chartDisplay() {
       datasets: [{
         label: '# of Votes',
         data: votes,
-        backgroundColor: 'white',
+        backgroundColor: '#1F8AC0',
         borderColor: 'black',
       },
       {
         label: '# of Views',
         data: views,
-        backgroundColor: 'black',
-        borderColor: 'white',
+        backgroundColor: '#EFC9AF',
+        borderColor: 'black',
+
       }]
     },
 
