@@ -1,5 +1,7 @@
 'use strict';
 
+let votes = [];
+let views = [];
 const names = ['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass',];
 function Item(name) {
   this.name = name;
@@ -63,7 +65,7 @@ function handelClick(event){
         if (clicksNumber ===25){
           resultButton();
         }
-    
+
       }
     }
   }
@@ -86,10 +88,18 @@ function resultButton(){
     const ul = document.createElement('ul');
     result.appendChild(ul);
     for(let i=0; i<names.length; i++){
-      const li = document.createElement('li');
-      ul.appendChild(li);
-      li.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
+      votes.push(Item.all[i].votes);
+      views.push(Item.all[i].views);
+
+      // const li = document.createElement('li');
+      // ul.appendChild(li);
+      // li.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
     }
+    console.log(votes);
+    console.log(views);
+    chartDisplay();
+
+
   });
 }
 
@@ -101,3 +111,25 @@ button2.addEventListener ('click', function() {
 
 });
 
+function chartDisplay() {
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: names,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: 'white',
+        borderColor: 'black',
+      },
+      {
+        label: '# of Views',
+        data: views,
+        backgroundColor: 'black',
+        borderColor: 'white',
+      }]
+    },
+
+  });
+}
