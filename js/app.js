@@ -62,7 +62,7 @@ function handelClick(event){
       if(Item.all[i].name === event.target.title){
         Item.all[i].votes++;
         clicksNumber=clicksNumber+1;
-        if (clicksNumber ===2){
+        if (clicksNumber ===25){
           resultButton();
         }
 
