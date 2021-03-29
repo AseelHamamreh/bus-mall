@@ -1,7 +1,6 @@
 'use strict';
 
 const names = ['bag','banana','bathroom','boots','breakfast','bubblegum','chair','cthulhu','dog-duck','dragon','pen','pet-sweep','scissors','shark','sweep','tauntaun','unicorn','usb','water-can','wine-glass',];
-
 function Item(name) {
   this.name = name;
   this.path = `./assets/${name}.jpg`;
@@ -22,7 +21,7 @@ const imagesSection = document.getElementById('images-section');
 
 
 function render(){
-  let leftIndex=randomNumber(0,Item.all.length-1);
+  let leftIndex=randomNumber(0,names.length-1);
   leftImage.src = Item.all[leftIndex].path;
   leftImage.alt = Item.all[leftIndex].name;
   leftImage.title = Item.all[leftIndex].name;
@@ -52,8 +51,7 @@ function render(){
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
+let clicksNumber=0;
 imagesSection.addEventListener('click',handelClick);
 function handelClick(event){
   event.preventDefault();
@@ -61,8 +59,12 @@ function handelClick(event){
     for(let i=0; i<Item.all.length; i++){
       if(Item.all[i].name === event.target.title){
         Item.all[i].votes++;
+        clicksNumber=clicksNumber+1;
+        if (clicksNumber ===25){
+          resultButton();
+        }
+    
       }
-
     }
   }
   render();
@@ -74,13 +76,28 @@ render();
 
 
 const result =document.getElementById('result');
-const list =document.getElementById('list');
-// console.log(result);
-// console.log(list);
-result.addEventListener('click',function(){
-  for(let i=0; i<Item.all.length;i++){
-    list.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
-  }
-});
 
+
+function resultButton(){
+  const button = document.createElement('button');
+  result.appendChild(button);
+  button.textContent='VIEW RESULTS';
+  button.addEventListener ('click', function() {
+    const ul = document.createElement('ul');
+    result.appendChild(ul);
+    for(let i=0; i<names.length; i++){
+      const li = document.createElement('li');
+      ul.appendChild(li);
+      li.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
+    }
+  });
+}
+
+const button2 = document.createElement('button');
+result.appendChild(button2);
+button2.textContent='RESET';
+button2.addEventListener ('click', function() {
+  window.location.reload('Refresh');
+
+});
 
