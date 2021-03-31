@@ -86,9 +86,9 @@ function afterClicking(event){
       if(Item.all[i].name === event.target.title && clicksNumber<=25){
         Item.all[i].votes++;
         clicksNumber=clicksNumber+1;
+        settingItem();
         if (clicksNumber===25) {
           showResult();
-          reset();
         }
       }
     } render();
@@ -99,23 +99,27 @@ function afterClicking(event){
 const result = document.getElementById('result');
 
 function showResult() {
-  const button = document.createElement('button');
-  result.appendChild(button);
-  button.textContent='SHOW RESULT';
-  button.addEventListener('click', buttonSittings);
-  function buttonSittings(){
-    const ulEl = document.createElement('ul');
-    result.appendChild(ulEl);
-    for (let i=0; i<names.length; i++){
-      votes.push(Item.all[i].votes);
-      views.push(Item.all[i].views);
-      const liEl = document.createElement('li');
-      ulEl.appendChild(liEl);
-      liEl.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
-    }
-    chartDisplay();
+  // const button = document.createElement('button');
+  // result.appendChild(button);
+  // button.textContent='SHOW RESULT';
+  // button.addEventListener('click', buttonSittings);
+  // function buttonSittings(){
+  reset();
+  const h1El = document.createElement('h1');
+  result.appendChild(h1El);
+  h1El.textContent='YOUR RESULTS:';
+  const ulEl = document.createElement('ul');
+  result.appendChild(ulEl);
+  for (let i=0; i<names.length; i++){
+    votes.push(Item.all[i].votes);
+    views.push(Item.all[i].views);
+    const liEl = document.createElement('li');
+    ulEl.appendChild(liEl);
+    liEl.textContent= `${Item.all[i].name} had ${Item.all[i].votes} votes, and was seen ${Item.all[i].views} times.`;
   }
+  chartDisplay();
 }
+// }
 
 function reset(){
   const button2 = document.createElement('button');
@@ -147,3 +151,20 @@ function chartDisplay() {
     },
   });
 }
+
+function settingItem(){
+  let stringObj = JSON.stringify(Item.all);
+  localStorage.setItem('photo',stringObj);
+
+}
+
+
+function gettingItem(){
+  let product = localStorage.getItem('photo');
+  if(product) {
+    Item.all = JSON.parse(product);
+    showResult();
+
+  }
+}
+gettingItem();
