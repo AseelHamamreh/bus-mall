@@ -19,7 +19,6 @@ Item.all=[];
 for (let i=0; i<names.length;i++){
   new Item(names[i]);
 }
-
 // console.log(Item.all);
 
 let leftImage=document.getElementById('left-image');
