@@ -16,8 +16,6 @@ function Item (name){
 }
 Item.all=[];
 
-getItems();
-
 for (let i=0; i<names.length;i++){
   new Item(names[i]);
 }
@@ -88,25 +86,28 @@ function afterClicking(event){
       if(Item.all[i].name === event.target.title && clicksNumber<=25){
         Item.all[i].votes++;
         clicksNumber=clicksNumber+1;
+        settingItem();
         if (clicksNumber===25) {
           showResult();
-          reset();
         }
       }
     } render();
   }
-  setItems();
 }
 
 
 const result = document.getElementById('result');
 
 function showResult() {
-  const button = document.createElement('button');
-  result.appendChild(button);
-  button.textContent='SHOW RESULT';
-  button.addEventListener('click', buttonSittings);
-  function buttonSittings(){
+  // const button = document.createElement('button');
+  // result.appendChild(button);
+  // button.textContent='SHOW RESULT';
+  // button.addEventListener('click', buttonSittings);
+  // function buttonSittings(){
+    reset();
+    const h1El = document.createElement('h1');
+    result.appendChild(h1El);
+    h1El.textContent='YOUR RESULTS:';
     const ulEl = document.createElement('ul');
     result.appendChild(ulEl);
     for (let i=0; i<names.length; i++){
@@ -118,7 +119,7 @@ function showResult() {
     }
     chartDisplay();
   }
-}
+// }
 
 function reset(){
   const button2 = document.createElement('button');
@@ -151,16 +152,20 @@ function chartDisplay() {
   });
 }
 
-
-function setItems(){
-  let Items =JSON.stringify(Item.all);
-  localStorage.setItem('photos',photosItems);
+function settingItem(){
+  let stringObj = JSON.stringify(Item.all);
+  localStorage.setItem('photo',stringObj);
+ 
 }
 
 
-function getItems(){
-  let product = localStorage.getItem('photos');
+function gettingItem(){
+   let product = localStorage.getItem('photo');
   if(product) {
     Item.all = JSON.parse(product);
+    showResult();
+
   }
 }
+
+gettingItem();

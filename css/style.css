@@ -1,7 +1,5 @@
 body {
-
-
-    text-align: center;
+    /* text-align: center; */
   }
 
  .navbar {
@@ -52,13 +50,17 @@ body {
 
 button{
     font-size: 150%;
-    padding: 2px 15px 2px 15px;
-
+    padding: 2px 15px 2px 5px;
+    text-align: center;
     border: 5px solid #00000057;
     border-radius: 10px;
     margin-top: 50px;
+    margin-left: 120px;
     background: #EFC9AF;
     color: black;
+    float: left;
+    /* width: 20%; */
+
 }
 
 button:hover{
@@ -94,4 +96,12 @@ button:hover{
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+}
+
+h2{
+  clear: both;
+  text-align: center;
+  font-size: 40px;
+  font-family:monospace;
+  color: #1F8AC0;
 }
